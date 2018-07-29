@@ -15,7 +15,7 @@
 
 <ion-content padding>
     <ion-list>
-      <button ion-item *ngFor="let diarista of diaristas" (click) = "detalhes(diarista)">
+      <button ion-item *ngFor="let diarista of diaristas" (click) = "mostrarDetalhes(diarista)">
           <ion-avatar item-start>
               <img src="{{diarista.foto}}">
           </ion-avatar>

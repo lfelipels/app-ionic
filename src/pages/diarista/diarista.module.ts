@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { DiaristaPage } from './diarista';
-import { DiaristaDetalhesPage } from './diarista/detalhes/diarista-detalhes';
+import {DiaristaDetalhesPage} from './diarista-detalhes/diarista-detalhes';
 
 @NgModule({
   declarations: [
-    DiaristaPage,
-    DiaristaDetalhesPage
+    DiaristaPage, DiaristaDetalhesPage
   ],
   imports: [
-    IonicPageModule.forChild(DiaristaPage, DiaristaDetalhesPage),
+    IonicPageModule.forChild(DiaristaPage),
   ],
+  entryComponents: [
+      DiaristaDetalhesPage
+  ]
 })
 export class DiaristaPageModule {}
