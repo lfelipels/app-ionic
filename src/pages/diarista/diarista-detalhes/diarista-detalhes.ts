@@ -19,11 +19,15 @@ export class DiaristaDetalhesPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
       //recebe a diarista passada por parametro
       this.diarista = this.navParams.get('diarista')
-      console.log(this.diarista.nome);
+      //calcula a idade
+      this.diarista.idade = this.calcularIdade(this.diarista.nascimento);
+      console.log(this.diarista);
   }
 
-  calcularIdade() : integer{
-      let data = this.diarista.nascimento.split('/');
+  calcularIdade(nascimento){
+      console.log(nascimento);
+      
+      let data = nascimento.split('/');
       return new Date().getFullYear() - data[2];
   }
 

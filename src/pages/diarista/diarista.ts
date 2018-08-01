@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import {DiaristaDetalhesPage} from './diarista-detalhes/diarista-detalhes';
 
+import {ProfissionalProvider} from '../../providers/profissional/profissional';
+
 /**
  * Generated class for the DiaristaPage page.
  *
@@ -17,14 +19,10 @@ import {DiaristaDetalhesPage} from './diarista-detalhes/diarista-detalhes';
 })
 export class DiaristaPage {
 
-    public diaristas: any = [
-        {nome: 'Fulana 01', nascimento: '01-09-1993', resumo: '', telefone:'',  localizacao: 'Aproximadamente 2km', foto: '../assets/imgs/logo.png'},
-        {nome: 'Fulana 02', nascimento: '01-09-1993', resumo: '', telefone:'',  localizacao: 'Aproximadamente 2km', foto: '../assets/imgs/logo.png'},
-        {nome: 'Fulana 03', nascimento: '01-09-1993', resumo: '', telefone:'',  localizacao: 'Aproximadamente 2km', foto: '../assets/imgs/logo.png'},
-    ];
+    public diaristas: any = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-
+  constructor(public navCtrl: NavController, public navParams: NavParams, public service: ProfissionalProvider) {
+      this.diaristas = this.service.index();
   }
   // mostra os detalhes de uma diarista
   mostrarDetalhes(diarista){
@@ -32,7 +30,6 @@ export class DiaristaPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad DiaristaPage');
   }
 
 }
