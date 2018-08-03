@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import {EntregaFormPage} from '../entrega-form/entrega-form';
+import {EntregaProvider} from '../../providers/entrega/entrega';
 
 /**
  * Generated class for the EntregasPage page.
@@ -16,18 +17,20 @@ import {EntregaFormPage} from '../entrega-form/entrega-form';
   templateUrl: 'entregas.html',
 })
 export class EntregasPage {
-  public titulo: string = 'Pacotes para entrega'
+  public titulo: string = 'Lista de entrega a realizar'
 
-  public pacotes: Array<any> = [
-    {nome: 'Pacote 01', img: '../../assets/imgs/logo.png', data_entrega : '10/10/2018', hora_entrega: '10:00', estado: 'CE', cidade: 'Redenção', cep: '62790-000', endereco: 'Rua 01'},
-    {nome: 'Pacote 02', img: '../../assets/imgs/logo.png', data_entrega : '11/10/2018', hora_entrega: '10:00', estado: 'CE', cidade: 'Redenção', cep: '62790-000', endereco: 'Rua 01'},
-    {nome: 'Pacote 03', img: '../../assets/imgs/logo.png', data_entrega : '05/10/2018', hora_entrega: '10:00', estado: 'CE', cidade: 'Redenção', cep: '62790-000', endereco: 'Rua 01'},
-    {nome: 'Pacote 04', img: '../../assets/imgs/logo.png', data_entrega : '02/09/2018', hora_entrega: '10:00', estado: 'CE', cidade: 'Redenção', cep: '62790-000', endereco: 'Rua 01'},
+  public entregas: Array<any> = [];
 
-  ];
+  constructor(public navCtrl: NavController, public navParams: NavParams, private entregaProvider: EntregaProvider) {
+      this.index();
+  }
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-
+  index(){
+      this.entregaProvider.index()
+      .then((dados: any[]) => {
+          console.log(dados);
+          this.entregas = dados;
+      });
   }
 
   adicionar(){
@@ -38,11 +41,15 @@ export class EntregasPage {
 
   }
 
-  editar(pacote){
-
+  confirmarEntrega(entrega){
+      entrega.confirmada = !entrega.confirmada;
   }
 
-  mostrarDetalhes(pacote){
+  editar(entrega){
+      this.navCtrl.push(EntregaFormPage, {"entrega":entrega});
+  }
+
+  mostrarDetalhes(entrega){
 
   }
 

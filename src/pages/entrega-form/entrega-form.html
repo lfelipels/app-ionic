@@ -16,51 +16,39 @@
 <ion-content padding>
 
   <ion-list>
-    <ion-item>
-      <ion-label>Nome:</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>data: </ion-label>
-      <ion-datetime displayFormat="DD MM YYYY" pickerFormat="DD MM YYYY" [(ngModel)]="pacote.data_entrega"></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-label>Hora (Opcional): </ion-label>
-      <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="pacote.hora_entrega"></ion-datetime>
-    </ion-item>
-    <ion-item>
-    <ion-label>Estado:</ion-label>
-      <ion-select [(ngModel)]="gaming">
-        <ion-option value="nes">NES</ion-option>
-        <ion-option value="n64">Nintendo64</ion-option>
-        <ion-option value="ps">PlayStation</ion-option>
-        <ion-option value="genesis">Sega Genesis</ion-option>
-        <ion-option value="saturn">Sega Saturn</ion-option>
-        <ion-option value="snes">SNES</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label>Cidades:</ion-label>
-      <ion-select [(ngModel)]="gaming">
-        <ion-option value="nes">NES</ion-option>
-        <ion-option value="n64">Nintendo64</ion-option>
-        <ion-option value="ps">PlayStation</ion-option>
-        <ion-option value="genesis">Sega Genesis</ion-option>
-        <ion-option value="saturn">Sega Saturn</ion-option>
-        <ion-option value="snes">SNES</ion-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label>Cep:</ion-label>
-      <ion-input type="text"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Endereço:</ion-label>
-      <ion-input type="text" ></ion-input>
-    </ion-item>
+      <ion-item>
+        <ion-label>Nome:</ion-label>
+        <ion-input type="text" [(ngModel)]="entrega.nome"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Data: </ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" pickerFormat="DD MM YYYY" [(ngModel)]="entrega.data_entrega"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Hora (Opcional): </ion-label>
+        <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="entrega.hora_entrega"></ion-datetime>
+      </ion-item>
+      <ion-item>
+      <ion-label>Estado:</ion-label>
+        <ion-select [(ngModel)]="entrega.estado">
+          <ion-option *ngFor="let estado of estados" value="{{estado.sigla}}">{{estado.nome}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>Cidade:</ion-label>
+        <ion-input type="text" [(ngModel)]="entrega.cidade"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Cep:</ion-label>
+        <ion-input type="text" [(ngModel)]="entrega.cep"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Endereço:</ion-label>
+        <ion-input type="text" [(ngModel)]="entrega.endereco"></ion-input>
+      </ion-item>
   </ion-list>
   <div padding>
-    <button ion-button full (click)="salvar()">Salvar</button>
+    <button ion-button full (click)="salvar()" [disabled]="">Salvar</button>
   </div>
 
 </ion-content>

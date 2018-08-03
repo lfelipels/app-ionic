@@ -1,5 +1,19 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import { DatabaseProvider } from '../database/database';
+
+
+export class Entrega  {
+    nome: '';
+    img: '';
+    data_entrega : '';
+    hora_entrega: '';
+    estado: '';
+    cidade: '';
+    cep: '';
+    endereco: '';
+    confirmada: false;
+};
 
 /*
   Generated class for the EntregaProvider provider.
@@ -10,8 +24,75 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class EntregaProvider {
 
-  constructor(public http: HttpClient) {
+  constructor(public dbProvider: DatabaseProvider) {
     console.log('Hello EntregaProvider Provider');
   }
+
+  salvar(entrega){
+      if(entrega.id){
+          return this.atualizar(entrega);
+      }else{
+          return this.cadastrar(entrega);
+      }
+  }
+
+  index(){
+      return this.dbProvider.getDB()
+     .then((db: SQLiteObject) => {
+       let sql = 'SELECT * from entregas';
+       return db.executeSql(sql)
+         .then((data: any) => {
+           if (data.rows.length > 0) {
+             let entregas: any[] = [];
+             for (var i = 0; i < data.rows.length; i++) {
+               var entrega = data.rows.item(i);
+               entregas.push(entrega);
+             }
+             return entregas;
+           } else {
+             return [];
+           }
+         })
+         .catch((e) => console.error(e));
+     })
+     .catch((e) => console.error(e));
+  }
+
+  private cadastrar(entrega){
+      return this.dbProvider.getDB()
+       .then((db: SQLiteObject) => {
+         let sql = 'insert into entregas (nome, img, data_entrega, hora_entrega, estado, cidade, cep, endereco) values (?, ?, ?, ?, ?, ?, ?, ?)';
+         let data = [entrega.nome, entrega.img, entrega.data_entrega, entrega.hora_entrega, entrega.estado, entrega.cidade, entrega.cep, entrega.endereco];
+
+         return db.executeSql(sql, data)
+           .catch((e) => console.error(e));
+       })
+       .catch((e) => console.error(e));
+  }
+
+  private atualizar(entrega){
+      return this.dbProvider.getDB()
+       .then((db: SQLiteObject) => {
+         let sql = 'update entregas set nome = ?, img = ?, data_entrega = ?, hora_entrega = ?, estado = ?, cidade = ?, cep = ?, endereco = ?, confirmada = ? where id = ?';
+         let data = [entrega.nome, entrega.img, entrega.data_entrega, entrega.hora_entrega, entrega.estado, entrega.cidade, entrega.cep, entrega.endereco, entrega.confirmada, entrega.id];
+
+         return db.executeSql(sql, data)
+           .catch((e) => console.error(e));
+       })
+       .catch((e) => console.error(e));
+  }
+
+  public excluir(id: number) {
+    return this.dbProvider.getDB()
+      .then((db: SQLiteObject) => {
+        let sql = 'delete from entregas where id = ?';
+        let data = [id];
+
+        return db.executeSql(sql, data)
+          .catch((e) => console.error(e));
+      })
+      .catch((e) => console.error(e));
+  }
+
 
 }

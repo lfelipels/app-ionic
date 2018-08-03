@@ -1,4 +1,5 @@
-import { NgModule, ErrorHandler, LOCALE_ID } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
@@ -13,6 +14,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { DatabaseProvider } from '../providers/database/database';
 import { EntregaProvider } from '../providers/entrega/entrega';
+import { IbgeProvider } from '../providers/ibge/ibge';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { EntregaProvider } from '../providers/entrega/entrega';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    EntregasPageModule
+    EntregasPageModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -35,8 +38,10 @@ import { EntregaProvider } from '../providers/entrega/entrega';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    SQLite,
     DatabaseProvider,
-    EntregaProvider
+    EntregaProvider,
+    IbgeProvider
   ]
 })
 export class AppModule {}
