@@ -18,10 +18,10 @@
   <ion-list>
     <ion-item>
       <ion-label>Nome:</ion-label>
-      <ion-input type="text"></ion-input>
+      <ion-input type="text" [(ngModel)]="pacote.nome"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label>data: </ion-label>
+      <ion-label>Data: </ion-label>
       <ion-datetime displayFormat="DD MM YYYY" pickerFormat="DD MM YYYY" [(ngModel)]="pacote.data_entrega"></ion-datetime>
     </ion-item>
     <ion-item>
@@ -30,25 +30,13 @@
     </ion-item>
     <ion-item>
     <ion-label>Estado:</ion-label>
-      <ion-select [(ngModel)]="gaming">
-        <ion-option value="nes">NES</ion-option>
-        <ion-option value="n64">Nintendo64</ion-option>
-        <ion-option value="ps">PlayStation</ion-option>
-        <ion-option value="genesis">Sega Genesis</ion-option>
-        <ion-option value="saturn">Sega Saturn</ion-option>
-        <ion-option value="snes">SNES</ion-option>
+      <ion-select [(ngModel)]="pacote.estado">
+        <ion-option *ngFor="let estado in estados" value="{{estado.sigla}}">{{estado.nome}}</ion-option>
       </ion-select>
     </ion-item>
     <ion-item>
-      <ion-label>Cidades:</ion-label>
-      <ion-select [(ngModel)]="gaming">
-        <ion-option value="nes">NES</ion-option>
-        <ion-option value="n64">Nintendo64</ion-option>
-        <ion-option value="ps">PlayStation</ion-option>
-        <ion-option value="genesis">Sega Genesis</ion-option>
-        <ion-option value="saturn">Sega Saturn</ion-option>
-        <ion-option value="snes">SNES</ion-option>
-      </ion-select>
+      <ion-label>Cidade:</ion-label>
+      <ion-input type="text" [(ngModel)]="pacote.cidade"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>Cep:</ion-label>

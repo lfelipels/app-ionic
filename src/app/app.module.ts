@@ -13,6 +13,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { DatabaseProvider } from '../providers/database/database';
 import { EntregaProvider } from '../providers/entrega/entrega';
+import { IbgeProvider } from '../providers/ibge/ibge';
 
 @NgModule({
   declarations: [
@@ -34,9 +35,12 @@ import { EntregaProvider } from '../providers/entrega/entrega';
   providers: [
     StatusBar,
     SplashScreen,
+    {provide: LOCALE_ID, useValue: 'pt-BR'},
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    SQLite,
     DatabaseProvider,
-    EntregaProvider
+    EntregaProvider,
+    IbgeProvider
   ]
 })
 export class AppModule {}
