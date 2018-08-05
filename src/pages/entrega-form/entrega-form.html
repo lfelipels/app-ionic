@@ -16,6 +16,7 @@
 <ion-content padding>
 
   <ion-list>
+<<<<<<< HEAD
       <ion-item>
         <ion-label>Nome:</ion-label>
         <ion-input type="text" [(ngModel)]="entrega.nome"></ion-input>
@@ -46,6 +47,38 @@
         <ion-label>Endereço:</ion-label>
         <ion-input type="text" [(ngModel)]="entrega.endereco"></ion-input>
       </ion-item>
+=======
+    <ion-item>
+      <ion-label>Nome:</ion-label>
+      <ion-input type="text" [(ngModel)]="pacote.nome"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Data: </ion-label>
+      <ion-datetime displayFormat="DD MM YYYY" pickerFormat="DD MM YYYY" [(ngModel)]="pacote.data_entrega"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Hora (Opcional): </ion-label>
+      <ion-datetime displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="pacote.hora_entrega"></ion-datetime>
+    </ion-item>
+    <ion-item>
+    <ion-label>Estado:</ion-label>
+      <ion-select [(ngModel)]="pacote.estado">
+        <ion-option *ngFor="let estado in estados" value="{{estado.sigla}}">{{estado.nome}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label>Cidade:</ion-label>
+      <ion-input type="text" [(ngModel)]="pacote.cidade"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Cep:</ion-label>
+      <ion-input type="text"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Endereço:</ion-label>
+      <ion-input type="text" ></ion-input>
+    </ion-item>
+>>>>>>> 0437420d04a92ba987d754374bc31768d6894cac
   </ion-list>
   <div padding>
     <button ion-button full (click)="salvar()" [disabled]="">Salvar</button>
