@@ -27,6 +27,11 @@ export class MyApp {
           // ou se houver erro na criação do banco
           this.openHomePage(splashScreen);
         });
+<<<<<<< HEAD
+=======
+
+      splashScreen.hide();
+>>>>>>> 0437420d04a92ba987d754374bc31768d6894cac
     });
   }
 

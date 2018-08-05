@@ -44,7 +44,11 @@ export class DatabaseProvider {
     private createTables(db: SQLiteObject) {
       // Criando as tabelas
       db.sqlBatch([
+<<<<<<< HEAD
         ['CREATE TABLE IF NOT EXISTS entregas (id integer primary key AUTOINCREMENT NOT NULL, nome varchar(50) NOT NULL, data_entrega date NOT NULL, hora_entrega time NULL, estado char(2) NOT NULL, cidade varchar(30) NOT NULL, cep varchar(10) NOT NULL, endereco varchar(100) NOT NULL, confirmada boolean NOT NULL default false, img varchar(50) NULL'],
+=======
+        ['CREATE TABLE IF NOT EXISTS entregas (id integer primary key AUTOINCREMENT NOT NULL, nome varchar(50), data_entrega date, hora_entrega time, estado char(2), cidade varchar(30)), cep varchar(10), endereco varchar(100)'],        
+>>>>>>> 0437420d04a92ba987d754374bc31768d6894cac
       ])
       .then(() => console.log('Tabelas criadas'))
       .catch(e => console.error('Erro ao criar as tabelas', e));

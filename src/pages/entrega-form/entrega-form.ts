@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+<<<<<<< HEAD
 import { IbgeProvider } from '../../providers/ibge/ibge'
 import { EntregaProvider, Entrega } from '../../providers/entrega/entrega'
+=======
+import { IbgeProvider } from '../providers/database/database'
+>>>>>>> 0437420d04a92ba987d754374bc31768d6894cac
 
 /**
  * Generated class for the EntregaFormPage page.
@@ -17,6 +21,7 @@ import { EntregaProvider, Entrega } from '../../providers/entrega/entrega'
 export class EntregaFormPage {
   public titulo: string = 'Cadastrar nova entrega';
 
+<<<<<<< HEAD
   public entrega: any = null;
   public estados: Array<any> = [];
   public cidades: Array<any> = [];
@@ -38,6 +43,17 @@ export class EntregaFormPage {
   */
   carregarEstados(){
       this.estados = this.ibgeProvider.getEstados();
+=======
+  public estados: Array<any> = [];
+  public cidades: Array<any> = [];
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private ibgeProvider: IbgeProvider) {
+      this.carregarEstados();
+  }
+
+  carregarEstados(){
+      this.estados = ibgeProvider.getEstados();
+>>>>>>> 0437420d04a92ba987d754374bc31768d6894cac
   }
 
   salvar(){
