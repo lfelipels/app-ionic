@@ -16,7 +16,6 @@ import { EntregaProvider, Entrega } from '../../providers/entrega/entrega'
 })
 export class EntregaFormPage {
   public titulo: string = 'Cadastrar nova entrega';
-
   public entrega: any = null;
   public estados: Array<any> = [];
   public cidades: Array<any> = [];
