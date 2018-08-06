@@ -1,16 +1,20 @@
 import { NgModule, ErrorHandler } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
-import { HttpClientModule } from '@angular/common/http';
 import { MyApp } from './app.component';
 
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
-import { DiaristaPageModule } from '../pages/diarista/diarista.module';
+
+import {EntregasPageModule} from '../pages/entregas/entregas.module'
+import { SQLite } from '@ionic-native/sqlite'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { ProfissionalProvider } from '../providers/profissional/profissional';
+import { DatabaseProvider } from '../providers/database/database';
+import { EntregaProvider } from '../providers/entrega/entrega';
+import { IbgeProvider } from '../providers/ibge/ibge';
 
 @NgModule({
   declarations: [
@@ -21,8 +25,8 @@ import { ProfissionalProvider } from '../providers/profissional/profissional';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule,
-    DiaristaPageModule
+    EntregasPageModule,
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -33,8 +37,12 @@ import { ProfissionalProvider } from '../providers/profissional/profissional';
   providers: [
     StatusBar,
     SplashScreen,
+    // {provide: LOCALE_ID, useValue: 'pt-BR'},
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    ProfissionalProvider
+    SQLite,
+    DatabaseProvider,
+    EntregaProvider,
+    IbgeProvider
   ]
 })
 export class AppModule {}
