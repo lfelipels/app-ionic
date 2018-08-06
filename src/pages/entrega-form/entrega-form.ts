@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ViewController, LoadingController, ToastController } from 'ionic-angular';
 import { IbgeProvider } from '../../providers/ibge/ibge'
 import { EntregaProvider, Entrega } from '../../providers/entrega/entrega'
 
@@ -21,17 +21,28 @@ export class EntregaFormPage {
   public cidades: Array<any> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
+      private viewCtrl: ViewController, private loadingCtrl: LoadingController,
+      private toastCtrl: ToastController,
       private ibgeProvider: IbgeProvider, private entregaProvider: EntregaProvider) {
       this.carregarEstados();
 
       //verifica se foi passado alguma entrega para atualização
-      if(this.navParams.data.entrega && this.navParams.data.entrega.id){
-          this.entrega = this.navParams.data.entrega
+      if(this.viewCtrl.data.entrega && this.viewCtrl.data.entrega.id){
+          this.entrega = this.viewCtrl.data.entrega
       }
       else{
           this.entrega = new Entrega;
       }
   }
+
+  mostrarMsg(msg){
+      const toast = this.toastCtrl.create({
+          message: msg,
+          duration: 3000
+      });
+      toast.present();
+  }
+
   /**
   * Carrega os estados
   */
@@ -40,14 +51,29 @@ export class EntregaFormPage {
   }
 
   salvar(){
-      let rs = this.entregaProvider.salvar(this.entrega);
-      console.log(rs)
-      // .then((response)=>{
-      //     console.log(response);
-      // }).catch((error)=>{
-      //      console.error('Não foi possivel savar o registro.', error);
-      // });
+      let loading = this.loadingCtrl.create({ content: "Salvando o registro, por favor aguarde..." });
+      loading.present();
+
+      this.entregaProvider.salvar(this.entrega)
+      .then((response)=>{
+          setInterval(() => {
+              loading.dismissAll();
+          }, 5000);
+          this.fecharModal({status: 'success', messagem: 'Registro salvo com sucesso!'});
+      }).catch((error)=>{
+           //error
+           setInterval(() => {
+               loading.dismissAll();
+           }, 5000);
+
+           mostrarMsg('')
+      });
   }
+
+  fecharModal(data){
+      this.viewCtrl.dismiss(data);
+  }
+
 
   ionViewDidLoad() {
   }
