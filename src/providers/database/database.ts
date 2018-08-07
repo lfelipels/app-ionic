@@ -33,8 +33,7 @@ export class DatabaseProvider {
         this.createTables(db);
         // Inserindo dados padrão
         // this.insertDefaultItems(db);
-      })
-      .catch(e => console.log(e));
+      }).catch(e => console.log(e));
   }
 
     /**
@@ -43,9 +42,8 @@ export class DatabaseProvider {
     */
     private createTables(db: SQLiteObject) {
       // Criando as tabelas
-      db.sqlBatch([
-        ['CREATE TABLE IF NOT EXISTS entregas (id integer primary key AUTOINCREMENT NOT NULL, nome varchar(50) NOT NULL, data_entrega date NOT NULL, hora_entrega time NULL, estado char(2) NOT NULL, cidade varchar(30) NOT NULL, cep varchar(10) NOT NULL, endereco varchar(100) NOT NULL, confirmada boolean NOT NULL default false, img varchar(50) NULL'],
-        ]).then(() => console.log('Tabelas criadas'))
+      db.executeSql('CREATE TABLE IF NOT EXISTS entregas (id integer primary key AUTOINCREMENT NOT NULL, nome varchar(50) NOT NULL, data_entrega date NOT NULL, hora_entrega time NULL, estado char(2) NOT NULL, cidade varchar(30) NOT NULL, cep varchar(10) NOT NULL, endereco varchar(100) NOT NULL, confirmada boolean NOT NULL default false, img varchar(50) NULL')
+      .then(() => console.log('Tabelas criadas'))
       .catch(e => console.error('Erro ao criar as tabelas', e));
     }
 

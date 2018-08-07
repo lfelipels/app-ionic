@@ -19,6 +19,7 @@ export class EntregaFormPage {
   public entrega: any = null;
   public estados: Array<any> = [];
   public cidades: Array<any> = [];
+  public errors: Array<any> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
       private viewCtrl: ViewController, private loadingCtrl: LoadingController,
@@ -38,7 +39,10 @@ export class EntregaFormPage {
   mostrarMsg(msg){
       const toast = this.toastCtrl.create({
           message: msg,
-          duration: 3000
+          duration: 3000,
+          position: 'top',
+          // showCloseButton: true,
+          // closeButtonText: 'Ok',
       });
       toast.present();
   }
@@ -49,24 +53,23 @@ export class EntregaFormPage {
   carregarEstados(){
       this.estados = this.ibgeProvider.getEstados();
   }
+public i = 0;
+  salvar(){ this.i++;
 
-  salvar(){
-      let loading = this.loadingCtrl.create({ content: "Salvando o registro, por favor aguarde..." });
+      this.errors = [];
+      let loading = this.loadingCtrl.create({
+          content: "Salvando o registro, por favor aguarde...",
+          duration: 3000,
+          dismissOnPageChange: true
+      });
       loading.present();
 
       this.entregaProvider.salvar(this.entrega)
       .then((response)=>{
-          setInterval(() => {
-              loading.dismissAll();
-          }, 5000);
-          this.fecharModal({status: 'success', messagem: 'Registro salvo com sucesso!'});
+          this.fecharModal({status: 'success', message: 'Registro salvo com sucesso!'});
       }).catch((error)=>{
            //error
-           setInterval(() => {
-               loading.dismissAll();
-           }, 5000);
-
-           mostrarMsg('')
+           this.errors.push({status: 'fails', message: 'Erro ao salvar os dados!'});
       });
   }
 
