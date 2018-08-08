@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController } from 'ionic-angular';
 
 import {EntregaFormPage} from '../entrega-form/entrega-form';
 import {EntregaProvider} from '../../providers/entrega/entrega';
@@ -22,18 +22,14 @@ export class EntregasPage {
   public status: string = '';
   public message: string = '';
 
-  public entregas: Array<any> = [
-      {id: 1, nome: 'Pacote 01', img: '../assets/imgs/logo.png', data_entrega: '2019-02-15', hora_entrega: '08:00', estado: 'CE', cidade: 'Redenção', cep: '62790-000', endereco: 'Alto do Bode', confirmada: false},
-      {id: 2, nome: 'Pacote 02', img: '../assets/imgs/logo.png', data_entrega: '2019-02-15', hora_entrega: '08:00', estado: 'CE', cidade: 'Redenção', cep: '62790-000', endereco: 'Alto do Bode', confirmada: false},
-      {id: 3, nome: 'Pacote 03', img: '../assets/imgs/logo.png', data_entrega: '2019-02-15', hora_entrega: '08:00', estado: 'CE', cidade: 'Redenção', cep: '62790-000', endereco: 'Alto do Bode', confirmada: false},
-  ];
+  public entregas: Array<any> = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
+  constructor(
+      public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController,
       private modalCtrl: ModalController,private entregaProvider: EntregaProvider) {
-      this.index();
   }
 
-  index(){
+  public index(){
       this.entregaProvider.index()
       .then((dados: any[]) => {
           console.log(dados);
@@ -47,12 +43,42 @@ export class EntregasPage {
      this.abrirModal(EntregaFormPage, null, true);
   }
 
-  remover(pacote){
-
+  private mostrarMensagem(titulo, mensagem){
+      const alert = this.alertCtrl.create({
+          title: titulo,
+          subTitle: mensagem,
+          buttons: ['OK']
+      });
+      alert.present();
   }
 
-  confirmarEntrega(entrega){
-      entrega.confirmada = !entrega.confirmada;
+  remover(id){
+      const confirm = this.alertCtrl.create({
+          title: 'Excluir uma entrega',
+          message: "Deseja realmente realizar esta operação?",
+          buttons: [
+              {
+                  text: 'Cancelar',
+                  handler: () => {}
+              },
+              {
+                  text: 'Confirmar',
+                  handler: () => {
+                      this.excluir(id);
+                  }
+              }
+          ]
+      });
+      confirm.present();
+  }
+
+  private excluir(id){
+      this.entregaProvider.excluir(id)
+      .then((resultado)=>{;
+          this.mostrarMensagem('Excluir entrega', 'Operação realizada com sucesso!');
+          this.index();
+      })
+      .catch((e)=> console.error('Não foi possivel excluir o registro.', e));
   }
 
   editar(entrega){
@@ -67,8 +93,7 @@ export class EntregasPage {
       if(response){
           modal.onDidDismiss(data => {
               if(data){
-                  this.status = data.status;
-                  this.message = data.message;
+                  this.mostrarMensagem('', data.message);
                   if(data.status == 'success'){
                       this.index();
                   }
@@ -82,6 +107,7 @@ export class EntregasPage {
   }
 
   ionViewDidLoad() {
+      this.index();
   }
 
 }
