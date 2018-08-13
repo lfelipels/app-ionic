@@ -8,17 +8,27 @@ Ionic pages and navigation.
 
     <ion-navbar>
         <ion-title>{{titulo}}</ion-title>
+        <ion-buttons start>
+            <button ion-button (click)="fecharModal()">
+                <!-- <span ion-text color="primary" showWhen="ios">Cancel</span> -->
+                <!-- <ion-icon name="md-close" showWhen="android,windows"></ion-icon> -->
+                <ion-icon name="close"></ion-icon>
+            </button>
+        </ion-buttons>
     </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
-
     <p align="center">
-        <img (click)="tirarFoto()" style="width: 150px;
-        height: 150px; background: transparent !important;" [src]="imagem" />
+        <img style="width: 150px; height: 150px; background: transparent !important;" [src]="imagem" />
     </p>
-
+    <p align="center">
+        <button ion-button icon-start color="danger" (click)="tirarFoto()">
+            <ion-icon start name="camera"></ion-icon>
+            Tirar foto
+        </button>
+    </p>
     <ion-list>
         <ion-item>
             <ion-label>Nome:</ion-label>
@@ -53,6 +63,6 @@ Ionic pages and navigation.
     </ion-list>
     <div padding>
         <button ion-button block (click)="salvar()" [disabled]="">Salvar</button>
-        <button ion-button block color="danger" (click)="fecharModal()">Cancelar</button>
+        <!-- <button ion-button block color="danger" (click)="fecharModal()">Cancelar</button> -->
     </div>
 </ion-content>

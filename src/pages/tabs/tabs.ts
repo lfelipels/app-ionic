@@ -8,7 +8,7 @@ import { EntregasPage } from '../entregas/entregas';
 })
 export class TabsPage {
 
-  tab1Root = HomePage;
+  // tab1Root = HomePage;
   tab2Root = EntregasPage;
 
   constructor() {

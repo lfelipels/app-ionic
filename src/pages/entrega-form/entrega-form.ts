@@ -27,6 +27,7 @@ export class EntregaFormPage {
         //verifica se foi passado alguma entrega para atualização
         if(this.viewCtrl.data.entrega && this.viewCtrl.data.entrega.id){
             this.entrega = this.viewCtrl.data.entrega;
+            this.imagem = this.entrega.img;
             this.titulo  = "Editando a entrega " + this.viewCtrl.data.entrega.nome;
         }
         else{
@@ -45,7 +46,7 @@ export class EntregaFormPage {
         this.camera.getPicture(options)
         .then((imageData) => {
             this.imagem = 'data:image/jpeg;base64,' + imageData;
-            //console.log(this.imagem);
+            console.log(this.imagem);
         }, (err) => {
             console.error('Erro ao tirar a foto', err);
         });
