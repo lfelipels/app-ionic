@@ -7,7 +7,7 @@ Ionic pages and navigation.
 <ion-header>
 
     <ion-navbar>
-        <ion-title>Detalhes da entrega</ion-title>
+        <ion-title>{{entrega.nome}}</ion-title>
     </ion-navbar>
 
 </ion-header>
@@ -18,11 +18,6 @@ Ionic pages and navigation.
         <img style="width: 150px; height: 150px; background: transparent !important;" [src]="entrega.img" />
     </p>
     <ion-list>
-        <ion-item>Nome:
-            <ion-note item-end>
-                {{entrega.nome}}
-            </ion-note>
-        </ion-item>
         <ion-item>Data de entrega:
             <ion-note item-end>
                 {{entrega.data_entrega}}
@@ -44,5 +39,5 @@ Ionic pages and navigation.
             </ion-note>
         </ion-item>
     </ion-list>
-    <div #map id="map"></div>
+    <div id="map_canvas"></div>
 </ion-content>

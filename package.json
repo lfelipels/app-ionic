@@ -21,20 +21,23 @@
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
     "@ionic-native/camera": "^4.11.0",
-    "@ionic-native/core": "~4.11.0",
+    "@ionic-native/core": "^4.11.0",
     "@ionic-native/geolocation": "^4.11.0",
+    "@ionic-native/google-maps": "^4.9.1",
+    "@ionic-native/native-geocoder": "^4.11.0",
     "@ionic-native/splash-screen": "~4.11.0",
     "@ionic-native/sqlite": "^4.11.0",
     "@ionic-native/status-bar": "~4.11.0",
     "@ionic/storage": "2.1.3",
-    "cordova-android": "7.0.0",
     "cordova-browser": "5.0.3",
     "cordova-ios": "4.5.5",
     "cordova-plugin-camera": "^4.0.3",
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-geolocation": "^4.0.1",
+    "cordova-plugin-googlemaps": "^2.3.11",
     "cordova-plugin-ionic-keyboard": "^2.1.2",
     "cordova-plugin-ionic-webview": "^2.0.2",
+    "cordova-plugin-nativegeocoder": "^3.1.2",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-whitelist": "^1.3.3",
     "cordova-sqlite-storage": "^2.3.3",
@@ -61,10 +64,17 @@
       "cordova-plugin-camera": {},
       "cordova-plugin-geolocation": {
         "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
-      }
+      },
+      "cordova-plugin-googlemaps": {
+        "API_KEY_FOR_ANDROID": "AIzaSyDM_pAnBVJxzCzT9qkI7FJKz2TYbbMGrMg",
+        "API_KEY_FOR_IOS": "AIzaSyDM_pAnBVJxzCzT9qkI7FJKz2TYbbMGrMg",
+        "API_KEY_FOR_BROWSER": "AIzaSyDM_pAnBVJxzCzT9qkI7FJKz2TYbbMGrMg",
+        "PLAY_SERVICES_VERSION": "15.0.1",
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      },
+      "cordova-plugin-nativegeocoder": {}
     },
     "platforms": [
-      "android",
       "ios",
       "browser"
     ]

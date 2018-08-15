@@ -1,5 +1,18 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+
+import {
+    GoogleMaps,
+    GoogleMap,
+    GoogleMapsEvent,
+    GoogleMapOptions,
+    CameraPosition,
+    MarkerOptions,
+    Marker
+} from '@ionic-native/google-maps';
+
+import { NativeGeocoder, NativeGeocoderReverseResult, NativeGeocoderForwardResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder';
+
 import { Geolocation } from '@ionic-native/geolocation';
 
 declare var google;
@@ -11,43 +24,61 @@ declare var google;
 export class DetalhesEntregaPage {
 
     public entrega: any;
-    map: any;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private geolocation: Geolocation) {
-        this.entrega = this.navParams.data.entrega;
-        this.getMap();
-    }
+    map: GoogleMap;
 
-    ionViewDidLoad() {
-        this.getMap();
-    }
+    constructor(
+        public navCtrl: NavController, public navParams: NavParams, private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder) {
+            this.entrega = this.navParams.data.entrega;
+        }
 
-    private getMap(){
-        this.geolocation.getCurrentPosition()
-        .then((resp) => {
-            const position = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
+        ionViewDidLoad() {
+            this.getLocal();
+        }
 
-            const mapOptions = {
-                zoom: 18,
-                center: position
-            }
+        loadMap(latitude, longitude) {
 
+            let mapOptions: GoogleMapOptions = {
+                camera: {
+                    target: {
+                        lat: latitude,
+                        lng: longitude
+                    },
+                    zoom: 18,
+                    tilt: 30
+                }
+            };
 
-            this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
+            this.map = GoogleMaps.create('map_canvas', mapOptions);
 
-            const marker = new google.maps.Marker({
-                position: position,
-                map: this.map
+            let marker: Marker = this.map.addMarkerSync({
+                title: 'Ionic',
+                icon: 'blue',
+                animation: 'DROP',
+                position: {
+                    lat: latitude,
+                    lng: longitude
+                }
             });
-            console.log(marker);
+            marker.on(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+                alert('clicked');
+            });
+        }
 
-        }).catch((error) => {
-            console.log('Erro ao recuperar sua posição', error);
-        });
+
+        private getLocal(){
+            let options: NativeGeocoderOptions = {
+                useLocale: true,
+                maxResults: 5
+            };
+
+            this.nativeGeocoder.forwardGeocode(this.getEndereco(), options)
+            .then((coordinates: NativeGeocoderForwardResult[]) => this.loadMap(coordinates[0].latitude, coordinates[0].longitude))
+            .catch((error: any) => console.log(error));
+        }
+
+        public getEndereco(){
+            return this.entrega.endereco + ', ' + this.entrega.cidade + ' - ' + this.entrega.estado;
+        }
+
     }
-
-
-    public getEndereco(){
-        return this.entrega.endereco + ', ' + this.entrega.cidade + ' - ' + this.entrega.estado;
-    }
-}
