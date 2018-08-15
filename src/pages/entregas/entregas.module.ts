@@ -6,6 +6,7 @@ import { EntregaFormPage } from '../entrega-form/entrega-form';
 import { DetalhesEntregaPage } from '../detalhes-entrega/detalhes-entrega';
 
 import { Geolocation } from '@ionic-native/geolocation';
+import { GoogleMaps } from "@ionic-native/google-maps";
 
 
 import { Camera } from '@ionic-native/camera';
@@ -21,7 +22,7 @@ import { Camera } from '@ionic-native/camera';
     IonicPageModule.forChild(EntregasPage),
   ],
   providers:[
-      Camera, Geolocation      
+      Camera, Geolocation, GoogleMaps      
   ]
 })
 export class EntregasPageModule {}
