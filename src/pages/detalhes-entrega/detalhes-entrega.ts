@@ -52,7 +52,7 @@ export class DetalhesEntregaPage {
             this.map = GoogleMaps.create('map_canvas', mapOptions);
 
             let marker: Marker = this.map.addMarkerSync({
-                title: 'Ionic',
+                title: 'Local de En',
                 icon: 'blue',
                 animation: 'DROP',
                 position: {
